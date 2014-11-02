@@ -1,0 +1,45 @@
+\documentclass[10pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[ruled,linesnumbered,noend]{algorithm2e}
+\usepackage{empheq}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+
+\title{Introduction to Machine Learning, Fall 2014 - Exercise session II}
+\author{Rodion ``rodde'' Efremov}
+
+\begin{document}
+ \maketitle
+
+\color{red}
+\section*{Problem 3 (3 points)}
+Proximity is typically defined between a pair of objects.
+\begin{itemize}
+\item[(a)] Give two ways in which you might define the 'proximity' among a set of (more than two) objects (i.e. a single measure of how similar an arbitrary number of items are all to one another)
+\item[(b)] How might you define the distance between two sets of points in Euclidian space?
+\item[(c)] How might you define the proximity between two sets of data objects? (Make no assumptions about the data objects, except that a proximity measure is defined between any pair of objects.)
+\end{itemize}
+
+\color{black}
+\subsection*{(a)}
+If $P(\textbf{x}, \textbf{y})$ is a ``normal'' function giving the proximity of data objects $\textbf{x}$ and $\textbf{y}$, and $A$ is an arbitrary set of data objects (which can be indexed like $A_1, A_2, \dots,\\ A_n$), I would try 
+\[
+P(A) = \Bigg( \sum_{1 \leq i < j \leq n} P(A_i, A_j) \Bigg)\binom{n}{2}^{-1},
+\]
+or namely the average proximity over all pairs of data objects from $A$. For another one, I would choose a small $\varepsilon > 0$, and define $P(A)$ as
+\[
+\prod_{1 \leq i < j \leq n} \bigg( \max \big( P(A_i, A_j), \varepsilon \big) \bigg)^{ - \binom{n}{2}},
+\]
+or namely the geometric mean over all pairs of data objects from $A$. The $\varepsilon$ is choosed to be positive so that a single proximity value of 0 does not dominate the entire proximity of a set and bring it down to 0. (Above, it is assumed that $P(\textbf{x}, \textbf{y}) \geq 0$ for all data objects $\textbf{x}, \textbf{y}$.)
+ 
+ 
+ 
+\end{document}
