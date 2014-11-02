@@ -36,10 +36,19 @@ P(A) = \Bigg( \sum_{1 \leq i < j \leq n} P(A_i, A_j) \Bigg)\binom{n}{2}^{-1},
 \]
 or namely the average proximity over all pairs of data objects from $A$. For another one, I would choose a small $\varepsilon > 0$, and define $P(A)$ as
 \[
-\prod_{1 \leq i < j \leq n} \bigg( \max \big( P(A_i, A_j), \varepsilon \big) \bigg)^{ - \binom{n}{2}},
+\prod_{1 \leq i < j \leq n} \bigg( \max \big( P(A_i, A_j), \varepsilon \big) \bigg)^{ \frac{1}{\binom{n}{2}}} \geq \varepsilon,
 \]
 or namely the geometric mean over all pairs of data objects from $A$. The $\varepsilon$ is choosed to be positive so that a single proximity value of 0 does not dominate the entire proximity of a set and bring it down to 0. (Above, it is assumed that $P(\textbf{x}, \textbf{y}) \geq 0$ for all data objects $\textbf{x}, \textbf{y}$.)
  
+\subsection*{(b)}
+ I would do the way topologists do: if $A$ and $B$ are two (finite) sets of points in Euclidian space, then
+ \[
+ P(A, B) = \underset{(\textbf{x}, \textbf{y}) \in A \times B}{\min} d(\textbf{x}, \textbf{y}).
+ \]
  
- 
+\subsection*{(c)}
+Suppose we are given two sets of data objects, $A$ and $B$. Now, the easiest way to define proximity between them is
+\[
+P(A, B) = \sum_{\textbf{x} \in A} \sum_{\textbf{y} \in B} \frac{P(\textbf{x}, \textbf{y})}{|A||B|}.
+\]  
 \end{document}
