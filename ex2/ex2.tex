@@ -20,6 +20,26 @@
  \maketitle
 
 \color{red}
+\section*{Problem 1 (3 points)}
+Consider a document-term matrix, where $tf_{ij}$ is the number of times that the $i^{th}$ word (term) appeares in the $j^{th}$ document, and let $m$ be the total number of documents in the collection. Consider the variable transformation that is defined by
+\begin{align}
+tf'_{ij} = tf_{ij} \log \frac{m}{df_i},
+\end{align}
+where $df_i$ is the number of documents in which the $i^{th}$ term appears, which is known as the \textit{document frequency} of the term. This transformation is known as the \textit{inverse document frequency} transformation.
+\begin{itemize}
+\item[(a)] What is the effect of this transformation if a term occurs in only one document? In every document?
+\item[(b)] What is the overall effect and what might be the purpose of this transformation?
+\item[(c)] Can you think of other (non-document) data in which this transformation might be useful?
+\end{itemize}
+
+\color{black}
+\subsection*{(a)}
+If the the term occurs in only one document, we have $df_i = 1$, and, thus, $tf'_{ij} = tf_{ij}\log m$. If $df_i = m$, we have that $tf'_{ij} = tf_{ij}\log \frac{m}{m} = 0$.
+
+\subsection*{(b)}
+The inverse document frequency aims to minimize the effect of over-emphasized terms such as ``the'', ``in'', and so on, and to emphasize the words that are not used very often, and, thus, allow better chance of differentiating between documents.
+
+\color{red}
 \section*{Problem 3 (3 points)}
 Proximity is typically defined between a pair of objects.
 \begin{itemize}
