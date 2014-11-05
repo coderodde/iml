@@ -39,6 +39,42 @@ If the the term occurs in only one document, we have $df_i = 1$, and, thus, $tf'
 \subsection*{(b)}
 The inverse document frequency aims to minimize the effect of over-emphasized terms such as ``the'', ``in'', and so on, and to emphasize the words that are not used very often, and, thus, allow better chance of differentiating between documents.
 
+\subsection*{(c)}
+Suppose that the rows of the matrix represent particular market baskets of individual shoppers, and the columns represent particular items. Now, the ''\textit{inverse item frequency}'' lessens the effect of the items that tend to be ''popular'', such as bread or milk, for instance.
+
+\color{red}
+\section*{Problem 2 (3 points)}
+In this exercise we explore the relationships between the cosine and correlation similarity measures and Euclidean distance for data vectors in $\mathbb{R}^n$.
+
+\begin{itemize}
+\item[(a)] What is the range of values that are possible for the cosine measure?
+\item[(b)] If two objects have a cosine measure of 1, are they necessarily identical? Explain.
+\item[(c)] What is the relationship of the cosine measure to correlation, if any? (Hint: Look at statistical measures such as mean and standard deviation in cases where cosine and correlation are the same and different.)
+\item[(d)] Derive the mathematical relationship between cosine similarity and Euclidean distance when each data object has an $L_2$ length (norm) of 1.
+\item[(e)] Derive the mathematical relationship between correlation and Euclidean distance when each data point has been standardized by substracting its mean and dividing by its standard deviation.
+\end{itemize}
+
+\color{black}
+\subsection*{(a)}
+The range of values is the range of values of cosine function, i.e., $[-1, 1]$.
+
+\subsection*{(b)}
+If the cosine measure of two objects $\textbf{x}$ and $\textbf{y}$ is 1, it implies that the two vectors have zero degree angle, i.e. they have the same orientation. Because the cosine measure is agnostic to the lengths of the vectors however, it implies that $\textbf{x} = a\textbf{y}$ for some real $a > 0$.
+
+\subsection*{(c)}
+
+\subsection*{(d)}
+
+\subsection*{(e)}
+Suppose we are given two $n$-vectors $X'$ and $Y'$. We compute the means of both of them, and denote the aforementioned as $\bar{X'}$ and $\bar{Y'}$. Next, we compute standard deviations of both, $\sigma_{X'}$ and $\sigma_{Y'}$, after which we have all the data needed to standardize $X'$ and $Y'$: for each component, we subtract the respective mean and divide by the respective standard deviation, and thus, we obtain two new vectors $X$ and $Y$ with both having means $\bar{X} = \bar{Y} = 0$ and standard deviation $\sigma_X = \sigma_Y = 1$.  Now we have that
+\begin{align*}
+d^2(X, Y) &= \sum_{k = 1}^n (X_k - Y_k)^2 \\
+                 &= \sum_{k = 1}^n (X_k^2 + Y_k^2 - 2X_k Y_k) \\
+                 &= |X|^2 + |Y|^2 - 2n \Bigg( \frac{1}{n} \sum_{k = 1}^n X_k Y_k \Bigg) \\
+                 &= |X|^2 + |Y|^2 - 2n \Bigg( \frac{\frac{1}{n} \sum_{k = 1}^n (X_k - \bar{X})(Y_k - \bar{Y})}{\sigma_X \sigma_Y}\Bigg) \\
+                 &= |X|^2 + |Y|^2 - 2nr,
+\end{align*}
+where $r$ denotes the correlation factor of vectors $X, Y$.
 \color{red}
 \section*{Problem 3 (3 points)}
 Proximity is typically defined between a pair of objects.
