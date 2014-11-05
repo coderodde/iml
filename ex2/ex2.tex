@@ -64,6 +64,15 @@ If the cosine measure of two objects $\textbf{x}$ and $\textbf{y}$ is 1, it impl
 \subsection*{(c)}
 
 \subsection*{(d)}
+Suppose we are given two data objects $X$ and $Y$, both having an $L_2$ length of 1. Now we have that
+\begin{align*}
+d(X, Y) &= \sqrt{\sum_{k = 1}^n \bigg( X_k - Y_k \bigg)^2} \\
+           &= \sqrt{\sum_{k = 1}^n \bigg( X_k^2 + Y_k^2 - 2X_kY_k \bigg)} \\
+           &= \sqrt{|X|^2 + |Y|^2 - 2 \sum_{k = 1}^n X_kY_k} \\
+           &= \sqrt{|X|^2 + |Y|^2 - 2 \frac{X \cdot Y}{|X||Y|}} \\
+           &= \sqrt{|X|^2 + |Y|^2 - 2 \cos \theta_{X,Y}},           
+\end{align*}
+where $\cos \theta_{X,Y}$ is the cosine measure of the vectors $X$ and $Y$.
 
 \subsection*{(e)}
 Suppose we are given two $n$-vectors $X'$ and $Y'$. We compute the means of both of them, and denote the aforementioned as $\bar{X'}$ and $\bar{Y'}$. Next, we compute standard deviations of both, $\sigma_{X'}$ and $\sigma_{Y'}$, after which we have all the data needed to standardize $X'$ and $Y'$: for each component, we subtract the respective mean and divide by the respective standard deviation, and thus, we obtain two new vectors $X$ and $Y$ with both having means $\bar{X} = \bar{Y} = 0$ and standard deviation $\sigma_X = \sigma_Y = 1$.  Now we have that
@@ -74,7 +83,7 @@ d^2(X, Y) &= \sum_{k = 1}^n (X_k - Y_k)^2 \\
                  &= |X|^2 + |Y|^2 - 2n \Bigg( \frac{\frac{1}{n} \sum_{k = 1}^n (X_k - \bar{X})(Y_k - \bar{Y})}{\sigma_X \sigma_Y}\Bigg) \\
                  &= |X|^2 + |Y|^2 - 2nr,
 \end{align*}
-where $r$ denotes the correlation factor of vectors $X, Y$.
+where $r$ denotes the correlation factor of the vectors $X, Y$.
 \color{red}
 \section*{Problem 3 (3 points)}
 Proximity is typically defined between a pair of objects.
