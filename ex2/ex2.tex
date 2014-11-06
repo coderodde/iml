@@ -62,7 +62,20 @@ The range of values is the range of values of cosine function, i.e., $[-1, 1]$.
 If the cosine measure of two objects $\textbf{x}$ and $\textbf{y}$ is 1, it implies that the two vectors have zero degree angle, i.e. they have the same orientation. Because the cosine measure is agnostic to the lengths of the vectors however, it implies that $\textbf{x} = a\textbf{y}$ for some real $a > 0$.
 
 \subsection*{(c)}
-
+Suppose we are given two data vectors $X, Y$, and their respective means are $\bar{X}, \bar{Y}$.
+Now we have that the correlation coefficient of the two is 
+\[
+r_{X, Y} = \frac{\sum_{k = 1}^n \big( X_k - \bar{X} \big) \big( Y_k - \bar{Y} \big)}{ \sqrt{ \sum_{ k = 1 }^n \big(X_k - \bar{X} \big)^2 } \sqrt{ \sum_{k = 1}^n \big(Y_k - \bar{Y} \big)^2 } }.
+\]
+If $A = (A_1, \dots, A_n) \in \mathbb{R}^n$ and $\alpha \in \mathbb{R}$, by $A + \alpha$ we denote the vector $(A_1 + \alpha, \dots, A_n + \alpha)$. Now, let us substitute $X' = X - \bar{X}$ and $Y' = Y - \bar{Y}$. We obtain
+\begin{align*}
+r_{X, Y} &= \frac{\sum_{k = 1}^n \big( X_k - \bar{X} \big) \big( Y_k - \bar{Y} \big)}{ \sqrt{ \sum_{ k = 1 }^n \big(X_k - \bar{X} \big)^2 } \sqrt{ \sum_{k = 1}^n \big(Y_k - \bar{Y} \big)^2 } } \\
+            &= \frac{ \sum_{k = 1}^n X'_k Y'_k }{ \sqrt{ \sum_{k = 1}^n {X'}_k^2 }  \sqrt{ \sum_{k = 1}^n {Y'}_{k}^2} } \\
+            &= \frac{ X' \cdot Y' }{ |X'| |Y'| } \\
+            &= \cos(X', Y') \\
+            &= \cos(X - \bar{X}, Y - \bar{Y}).
+\end{align*}
+ 
 \subsection*{(d)}
 Suppose we are given two data objects $X$ and $Y$, both having an $L_2$ length of 1. Now we have that
 \begin{align*}
@@ -70,7 +83,9 @@ d(X, Y) &= \sqrt{\sum_{k = 1}^n \bigg( X_k - Y_k \bigg)^2} \\
            &= \sqrt{\sum_{k = 1}^n \bigg( X_k^2 + Y_k^2 - 2X_kY_k \bigg)} \\
            &= \sqrt{|X|^2 + |Y|^2 - 2 \sum_{k = 1}^n X_kY_k} \\
            &= \sqrt{|X|^2 + |Y|^2 - 2 \frac{X \cdot Y}{|X||Y|}} \\
-           &= \sqrt{|X|^2 + |Y|^2 - 2 \cos \theta_{X,Y}},           
+           &= \sqrt{|X|^2 + |Y|^2 - 2 \cos \theta_{X,Y}} \\
+           &= \sqrt{2 - 2 \cos \theta_{X,Y}} \\
+           &= \sqrt{2(1 - \cos \theta_{X,Y})} \in [0, 2].        
 \end{align*}
 where $\cos \theta_{X,Y}$ is the cosine measure of the vectors $X$ and $Y$.
 
@@ -79,11 +94,13 @@ Suppose we are given two $n$-vectors $X'$ and $Y'$. We compute the means of both
 \begin{align*}
 d^2(X, Y) &= \sum_{k = 1}^n (X_k - Y_k)^2 \\
                  &= \sum_{k = 1}^n (X_k^2 + Y_k^2 - 2X_k Y_k) \\
-                 &= |X|^2 + |Y|^2 - 2n \Bigg( \frac{1}{n} \sum_{k = 1}^n X_k Y_k \Bigg) \\
-                 &= |X|^2 + |Y|^2 - 2n \Bigg( \frac{\frac{1}{n} \sum_{k = 1}^n (X_k - \bar{X})(Y_k - \bar{Y})}{\sigma_X \sigma_Y}\Bigg) \\
-                 &= |X|^2 + |Y|^2 - 2nr,
+                 &= |X|^2 + |Y|^2 - 2(n - 1) \Bigg( \frac{1}{n - 1} \sum_{k = 1}^n X_k Y_k \Bigg) \\
+                 &= |X|^2 + |Y|^2 - 2(n - 1) \Bigg( \frac{\frac{1}{n - 1} \sum_{k = 1}^n (X_k - \bar{X})(Y_k - \bar{Y})}{\sigma_X \sigma_Y}\Bigg) \\
+                 &= |X|^2 + |Y|^2 - 2(n - 1)r_{X, Y},
 \end{align*}
-where $r$ denotes the correlation factor of the vectors $X, Y$.
+where $r_{X, Y}$ denotes the correlation factor of the vectors $X, Y$.
+
+% problem 3 %
 \color{red}
 \section*{Problem 3 (3 points)}
 Proximity is typically defined between a pair of objects.
