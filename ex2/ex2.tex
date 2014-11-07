@@ -19,7 +19,7 @@
 \begin{document}
  \maketitle
 
-\color{red}
+\color{blue}
 \section*{Problem 1 (3 points)}
 Consider a document-term matrix, where $tf_{ij}$ is the number of times that the $i^{th}$ word (term) appeares in the $j^{th}$ document, and let $m$ be the total number of documents in the collection. Consider the variable transformation that is defined by
 \begin{align}
@@ -42,7 +42,7 @@ The inverse document frequency aims to minimize the effect of over-emphasized te
 \subsection*{(c)}
 Suppose that the rows of the matrix represent particular market baskets of individual shoppers, and the columns represent particular items. Now, the ''\textit{inverse item frequency}'' lessens the effect of the items that tend to be ''popular'', such as bread or milk, for instance.
 
-\color{red}
+\color{blue}
 \section*{Problem 2 (3 points)}
 In this exercise we explore the relationships between the cosine and correlation similarity measures and Euclidean distance for data vectors in $\mathbb{R}^n$.
 
@@ -101,7 +101,8 @@ d^2(X, Y) &= \sum_{k = 1}^n (X_k - Y_k)^2 \\
 where $r_{X, Y}$ denotes the correlation factor of the vectors $X, Y$.
 
 % problem 3 %
-\color{red}
+
+\color{blue}
 \section*{Problem 3 (3 points)}
 Proximity is typically defined between a pair of objects.
 \begin{itemize}
@@ -133,4 +134,44 @@ Suppose we are given two sets of data objects, $A$ and $B$. Now, the easiest way
 \[
 P(A, B) = \sum_{\textbf{x} \in A} \sum_{\textbf{y} \in B} \frac{P(\textbf{x}, \textbf{y})}{|A||B|}.
 \]  
+
+\color{blue}
+\section*{Problem 4 (15 points)}
+In this problem we will consider similarity measures for movies on the Movielens dataset.
+ \color{black}
+ 
+\begin{itemize}
+ \item[(a)] 
+ \begin{verbatim}
+ # Octave/Matlab
+ cd path/to/movielens
+ run('loadmovielens.m')
+ [ratings items userids itemids] = loadmovielens();
+ \end{verbatim}
+ 
+ \item[(b)]
+ \begin{verbatim}
+ function coef = Jaccard(id1, id2, ratings)
+   coef = -1;
+   a = [];
+   b = [];
+   # Accumulate sets of user IDs:
+   # 'a' for the users who ranked the film with ID 'id1', and
+   # 'b' for the users who ranked the film with ID 'id2'.
+   for i = 1:size(ratings)(1)
+     if (ratings(i, 2) == id1)
+       # Really nasty looking "idiom" for appending to a list.
+       a(size(a)(2) + 1) = ratings(i, 1);
+     elseif (ratings(i, 2) == id2)
+       b(size(b)(2) + 1) = ratings(i, 1);
+     endif 
+   endfor
+   coef = size(intersect(a,b))(2) / size(union(a, b))(2);
+   return;
+ endfunction
+ \end{verbatim}
+ 
+ At this point, I have no idea whether Matlab/Octave provide a built-in functionality for linear search, so I have to opt for own implementation.
+\end{itemize}
+
 \end{document}
