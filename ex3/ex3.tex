@@ -42,9 +42,12 @@ cd /path/to/mnist
 run('loadmnist.m');
 [X y] = loadmnist(5000);
 \end{verbatim}
-Now the matrix $X$ contains an image at each row (\texttt{X(i,:)} is an $i$th image).
+Now the matrix $X$ contains an image at each row (\texttt{X(i,:)} is the $i$th image).
 
-\item[(b)] As to verify the data, we need a randomly selected array of indices:
+\color{blue}
+\item[(b)] Use the provided functions to plot a random sample of 100 handwritten digits, and show the associated labels. Verify that the labels match the digit images. (This is a sanity check that you have the data [is] in the right format.)
+
+\color{black} As to verify the data, we need a randomly selected array of indices:
 \begin{verbatim}
 indices = randperm(5000, 100);
 \end{verbatim}
@@ -55,6 +58,33 @@ y(indices) # Prints the actual labels.
            # Appeared to be in accord with the drawn digits.
 \end{verbatim}
 
+\includegraphics[width=\textwidth]{mnist_sample.png}
+
+The labels in vector \texttt{y} for the digits in the upmost row are:  4 2 6 2 1 2 0 5 1 3.
+
+\color{blue}
+\item[(c)] Divide the data into two parts: A 'training set' consisting of the first 2,500 images (and associated labels), and a 'test set' containing the remaining 2,500 images (and their associated labels).
+
+\color{black}
+Dividing the data set is simple:
+\begin{verbatim}
+TrainingSet = X(1:2500,:);
+TestSet = X(2501:5000,:);
+TrainingSetY = y(1:2500);
+TestSetY = y(2501:5000);
+\end{verbatim}
+
+\color{blue}
+\item[(d)] For each ot the ten classes (digits 0-9), compute a class \textit{prototype} given by the mean of all the images in the training set that belong to this class. That is, select from the training set all images of class '0' and compute the mean image of these; this should look sort of like a zero. Do this for all ten classes, and plot the resulting images. Do the look like what you would expect?
+
+\color{blue}
+\item[(e)] For each of the images in the test set, compute the Euclidian distance of the image to all 10 prototypes, and classify the test image into the class for which the distance to the distance to the prototype is the smallest. So, if a test image is closer to the prototype for '3' than it is to the prototypes for any of the other digits, predict its class to be '3'. Compute and display the resulting \textit{confusion matrix}.
+
+\color{blue}
+\item[(f)] Classify each of the test images with a nearest neighbor classifier: For each of the test images, compute its Euclidian distance to all (2,500) of the training images, and let the predicted class be the class of the closest training image. Compute and display the resulting confusion matrix.
+
+\color{blue}
+\item[(g)] Compute and compare the error rates of both classifiers (the prototype-based classifier and the nearest neighbor classifier). Which is working better? Based on the confusion matrix, which digits are confused with each other? Why do you think this is?
 \end{itemize}
 
 \end{document}
