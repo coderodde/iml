@@ -1,4 +1,5 @@
 movielens*
+mnist*
 .DS_Store
 *.aux
 *.log
