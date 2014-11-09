@@ -60,7 +60,7 @@ y(indices) # Prints the actual labels.
 
 \includegraphics[width=\textwidth]{mnist_sample.png}
 
-The labels in vector \texttt{y} for the digits in the upmost row are:  4 2 6 2 1 2 0 5 1 3.
+The first ten labels in vector \texttt{y} correspond to the digits in the upmost row:  4, 2, 6, 2, 1, 2, 0, 5, 1, 3, as expected.
 
 \color{blue}
 \item[(c)] Divide the data into two parts: A 'training set' consisting of the first 2,500 images (and associated labels), and a 'test set' containing the remaining 2,500 images (and their associated labels).
@@ -75,7 +75,43 @@ TestSetY = y(2501:5000);
 \end{verbatim}
 
 \color{blue}
-\item[(d)] For each ot the ten classes (digits 0-9), compute a class \textit{prototype} given by the mean of all the images in the training set that belong to this class. That is, select from the training set all images of class '0' and compute the mean image of these; this should look sort of like a zero. Do this for all ten classes, and plot the resulting images. Do the look like what you would expect?
+\item[(d)] For each ot the ten classes (digits 0-9), compute a class \textit{prototype} given by the mean of all the images in the training set that belong to this class. That is, select from the training set all images of class '0' and compute the mean image of these; this should look sort of like a zero. Do this for all ten classes, and plot the resulting images. Do they look like what you would expect?
+
+\color{black}
+First of all, we need a function to compute the prototypes:
+\begin{verbatim}
+function mean_vector = compute_prototype(T, labels, digit)
+  mean_vector = zeros(1, size(T)(2));
+  count = 0;
+  for i = 1:size(T)(1)
+    if labels(i) == digit
+      mean_vector += T(i,:);
+      count++;
+    endif
+  endfor
+  mean_vector /= count;
+endfunction
+\end{verbatim}
+Next, let us construct a $10 \times 784$-matrix $M$, whose rows are the prototypes. For all digits $d \in \{ 1, 2, \dots, 9 \}$, the prototype for $d$ is $M$'s $d$th row, and for the digit 0, the prototype is $M$'s 10th row.
+\begin{verbatim}
+function prototype_matrix = get_prototype_array(T, labels)
+  prototype_matrix = zeros(10, 784);
+  for i = 1:9
+    prototype_matrix(i,:) = compute_prototype(T, labels, i);
+  endfor
+  prototype_matrix(10,:) = compute_prototype(T, labels, 0);
+endfunction
+\end{verbatim}
+
+Now, running
+\begin{verbatim}
+visual(get_prototype_array(TrainingSet, TrainingSetY))
+\end{verbatim}
+we will obtain the following output:
+\begin{figure}[H]
+\includegraphics[width=\textwidth, keepaspectratio]{digit_prototypes.png}
+\end{figure}
+The prototypes look pretty good, but I suspect that 6 and 8 will be confused pretty often.
 
 \color{blue}
 \item[(e)] For each of the images in the test set, compute the Euclidian distance of the image to all 10 prototypes, and classify the test image into the class for which the distance to the distance to the prototype is the smallest. So, if a test image is closer to the prototype for '3' than it is to the prototypes for any of the other digits, predict its class to be '3'. Compute and display the resulting \textit{confusion matrix}.
