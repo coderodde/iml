@@ -92,6 +92,39 @@ function cm = naive_classify(TestSet, TestSetY, prototype_matrix)
   endfor
 endfunction
 
+function predicted_label = knn_classify_impl(TrainingSet,
+                                             TrainingSetY,
+                                             image)
+    best_distance = Inf;
+    best_label = -1;
+    for i = 1:size(TrainingSet)(1)
+      current_dist = euclidean_distance(image, TrainingSet(i,:));
+      if best_distance > current_dist
+        best_distance = current_dist;
+        best_label = TrainingSetY(i);
+      endif
+    endfor
+    predicted_label = best_label;
+endfunction
+
+function cm = knn_classify(TrainingSet, TrainingSetY, TestSet, TestSetY)
+  cm = zeros(10, 10);
+  for i = 1:size(TestSet)(1)
+    predicted_digit = knn_classify_impl(TrainingSet,
+                                        TrainingSetY,
+                                        TestSet(i,:));
+    % Map digits 0 to index 10.
+    if predicted_digit == 0
+      predicted_digit = 10;
+    endif
+    actual_digit = TestSetY(i);
+    if actual_digit == 0
+      actual_digit = 10;
+    endif
+    cm(predicted_digit, actual_digit)++;
+  endfor
+endfunction
+
 function err_rate = compute_error_rate(cm)
   total = sum(cm(:));
   hits = 0;
@@ -116,14 +149,14 @@ run('loadmnist.m');
 indices = randperm(5000, 100);
 
 # Display 100 chosen digits and print the respective classes.
-visual(X(indices,:));
-y(indices)
+#visual(X(indices,:));
+#y(indices)
 
 #### !!!! IMPORTANT !!!! #############################
 # On my Mac, gnuplot can display only one plot. If   #
 # your system does the same, close the current plot, #
 # and press Enter as instructed.                     #
-input("Please close the gnuplot, and press Enter! ");#
+#input("Please close the gnuplot, and press Enter! ");#
 ######################################################
 # Divide the data into the training set and the test set.
 TrainingSet = X(1:2500,:);
@@ -135,9 +168,13 @@ TestSetY = y(2501:5000);
 prototype_matrix = get_prototype_matrix(TrainingSet, TrainingSetY);
 
 # Plot them.
-visual(prototype_matrix);
+#visual(prototype_matrix);
 
-# Run the naive classifier over the test set,
-# construct its confusion matrix, and print it. 
-cm1 = naive_classify(TrainingSet, TrainingSetY, prototype_matrix)
-printf("Error rate: %f.", compute_error_rate(cm1));
+# Run the prototype-based classifier over the test set,
+# construct its confusion matrix, and print it along the error rate. 
+cm1 = naive_classify(TestSet, TestSetY, prototype_matrix)
+printf("Error rate of prototype-based classifier: %f.\n",
+       compute_error_rate(cm1));
+       
+cm2 = knn_classify(TrainingSet, TrainingSetY, TestSet, TestSetY)
+printf("Error rate of kNN-classifier: %f.\n", compute_error_rate(cm2));
