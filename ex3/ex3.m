@@ -37,10 +37,20 @@ function prototype_matrix = get_prototype_matrix(T, labels)
 endfunction
 
 function dist = euclidean_distance(a, b)
+  % euclidean_distance - computes the euclidian distance between the two
+  % given vectors 'a' and 'b'.
   dist = norm(a - b);
 endfunction
 
 function label = naive_classify_impl(image, prototype_matrix)
+  % naive_classify_impl - computes the label of the prototype, which is the
+  % closest to the image 'image'.
+  %
+  % This function takes the image to be classified ('image') and the
+  % prototype matrix ('prototype_matrix') that contains all the prototypes
+  % as its rows.
+  %
+  % Returns the label, whose respective prototype is closest to 'image'.
   best_digit = -1;
   best_dist = Inf;
   for digit = 1:10
@@ -58,6 +68,14 @@ function label = naive_classify_impl(image, prototype_matrix)
 endfunction
 
 function cm = naive_classify(TestSet, TestSetY, prototype_matrix)
+  % naive_classify - computes the confusion matrix of the given test set
+  % according to the particular prototype matrix.
+  %
+  % This function takes the test set ('TestSet') and the corresponding
+  % labels ('TestSetY'), along the prototype matrix ('prototype_matrix').
+  %
+  % Returns the confusion matrix, in which (i,j) element is the amount of
+  % times label 'i' was given to the actual label 'j'.
   cm = zeros(10, 10);
   for i = 1:size(TestSet)(1)
     predicted_class = naive_classify_impl(TestSet(i,:), prototype_matrix);
