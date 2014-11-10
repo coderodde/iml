@@ -32,6 +32,11 @@
 \section*{Problem 4 (15 points)}
 In this exercise we implement an extremely simple prototype-based classifier to classify handwritten digits from the MNIST dataset, and compare that to a nearest-neighbor classifier.
 
+\color{black}
+The included \texttt{ex3.m} file contains well document version of the code following. Also, if the \texttt{cd} command in the file is corrected to your path to MNIST data, it can be run with the \texttt{run('ex3.m')} command.
+
+\color{blue}
+
 \begin{itemize}
 \item[(a)] Download the MNIST data from the course web page. In addition to the actual data, the package contains some functions for easily loading the data into Matlab/Octave/R and for displaying digits. See the README files for details. Load the first $N=5,000$ images using the provided function.
 
@@ -94,7 +99,7 @@ endfunction
 \end{verbatim}
 Next, let us construct a $10 \times 784$-matrix $M$, whose rows are the prototypes. For all digits $d \in \{ 1, 2, \dots, 9 \}$, the prototype for $d$ is $M$'s $d$th row, and for the digit 0, the prototype is $M$'s 10th row.
 \begin{verbatim}
-function prototype_matrix = get_prototype_array(T, labels)
+function prototype_matrix = get_prototype_matrix(T, labels)
   prototype_matrix = zeros(10, 784);
   for i = 1:9
     prototype_matrix(i,:) = compute_prototype(T, labels, i);
@@ -105,7 +110,8 @@ endfunction
 
 Now, running
 \begin{verbatim}
-visual(get_prototype_array(TrainingSet, TrainingSetY))
+prototype_matrix = get_prototype_matrix(TrainingSet, TrainingSetY);
+visual(prototype_matrix);
 \end{verbatim}
 we will obtain the following output:
 \begin{figure}[H]
@@ -114,8 +120,70 @@ we will obtain the following output:
 The prototypes look pretty good, but I suspect that 6 and 8 will be confused pretty often.
 
 \color{blue}
-\item[(e)] For each of the images in the test set, compute the Euclidian distance of the image to all 10 prototypes, and classify the test image into the class for which the distance to the distance to the prototype is the smallest. So, if a test image is closer to the prototype for '3' than it is to the prototypes for any of the other digits, predict its class to be '3'. Compute and display the resulting \textit{confusion matrix}.
+\item[(e)] For each of the images in the test set, compute the Euclidian distance of the image to all 10 prototypes, and classify the test image into the class for which the distance to the prototype is the smallest. So, if a test image is closer to the prototype for '3' than it is to the prototypes for any of the other digits, predict its class to be '3'. Compute and display the resulting \textit{confusion matrix}.
 
+\color{black}
+Let us implement the naïve classifier:
+\begin{verbatim}
+function dist = euclidean_distance(a, b)
+  dist = norm(a - b);
+endfunction
+
+function label = naive_classify_impl(image, prototype_matrix)
+  best_digit = -1;
+  best_dist = Inf;
+  for digit = 1:10
+    current_dist = euclidean_distance(image, prototype_matrix(digit,:));
+    if best_dist > current_dist
+      best_dist = current_dist;
+      best_digit = digit;
+    endif
+  endfor
+  if best_digit == 10
+    label = 0;
+  else
+    label = best_digit;
+  endif
+endfunction
+
+function cm = naive_classify(TestSet, TestSetY, prototype_matrix)
+  cm = zeros(10, 10);
+  for i = 1:size(TestSet)(1)
+    predicted_class = naive_classify_impl(TestSet(i,:), prototype_matrix);
+    actual_class = TestSetY(i);
+    predicted_class_index = predicted_class;
+    actual_class_index = actual_class;
+    if predicted_class == 0
+      predicted_class_index = 10;
+    endif
+    if actual_class == 0
+      actual_class_index = 10;
+    endif
+    cm(predicted_class_index, actual_class_index)++;
+  endfor
+endfunction
+\end{verbatim}
+
+Now, to test the classifier with the test data, and to print the resulting confusion matrix, all we need is
+\begin{verbatim}
+cm1 = naive_classify(TrainingSet, 
+                     TrainingSetY, 
+                     prototype_matrix)
+\end{verbatim}
+And the confusion matrix looks like
+\begin{verbatim}
+   269    25     6     7    16    11    17    14     5     0
+     1   187     9     5     2     4     2     4     0     2
+     0     7   184     0    20     0     0    13     4     2
+     0     6     1   225     6     9    10     0    26     1
+     6     3    22     2   160     6     2    10     4    17
+     0     5     1     4     9   222     0     2     1     5
+     1     6     5     0     0     0   229     1     6     3
+     0     4     7     3     5     0     2   170     1     4
+     0     2     4    34     3     0    12     8   195     0
+     0     2     1     0     6     2     1     0     2   200
+\end{verbatim}
+where the rightmost column and the bottom row corresponds to digit '0'.
 \color{blue}
 \item[(f)] Classify each of the test images with a nearest neighbor classifier: For each of the test images, compute its Euclidian distance to all (2,500) of the training images, and let the predicted class be the class of the closest training image. Compute and display the resulting confusion matrix.
 

@@ -36,6 +36,44 @@ function prototype_matrix = get_prototype_matrix(T, labels)
   prototype_matrix(10,:) = compute_prototype(T, labels, 0);
 endfunction
 
+function dist = euclidean_distance(a, b)
+  dist = norm(a - b);
+endfunction
+
+function label = naive_classify_impl(image, prototype_matrix)
+  best_digit = -1;
+  best_dist = Inf;
+  for digit = 1:10
+    current_dist = euclidean_distance(image, prototype_matrix(digit,:));
+    if best_dist > current_dist
+      best_dist = current_dist;
+      best_digit = digit;
+    endif
+  endfor
+  if best_digit == 10
+    label = 0;
+  else
+    label = best_digit;
+  endif
+endfunction
+
+function cm = naive_classify(TestSet, TestSetY, prototype_matrix)
+  cm = zeros(10, 10);
+  for i = 1:size(TestSet)(1)
+    predicted_class = naive_classify_impl(TestSet(i,:), prototype_matrix);
+    actual_class = TestSetY(i);
+    predicted_class_index = predicted_class;
+    actual_class_index = actual_class;
+    if predicted_class == 0
+      predicted_class_index = 10;
+    endif
+    if actual_class == 0
+      actual_class_index = 10;
+    endif
+    cm(predicted_class_index, actual_class_index)++;
+  endfor
+endfunction
+
 # This is the "main" function, a.k.a. the entry point.
 
 # Substitute by *your* path.
@@ -66,4 +104,12 @@ TestSet = X(2501:5000,:);
 TrainingSetY = y(1:2500);
 TestSetY = y(2501:5000);
 
-visual(get_prototype_matrix(TrainingSet, TrainingSetY));
+# Get all ten prototypes.
+prototype_matrix = get_prototype_matrix(TrainingSet, TrainingSetY);
+
+# Plot them.
+visual(prototype_matrix);
+
+# Run the naive classifier over the test set,
+# construct its confusion matrix, and print it. 
+cm1 = naive_classify(TrainingSet, TrainingSetY, prototype_matrix)
