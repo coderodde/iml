@@ -92,15 +92,6 @@ function cm = naive_classify(TestSet, TestSetY, prototype_matrix)
   endfor
 endfunction
 
-function err_rate = compute_error_rate(cm)
-  total = sum(cm(:));
-  hits = 0;
-  for i = 1:10
-    hits += cm(i,i);
-  endfor
-  err_rate = 1 - hits / total;
-endfunction
-
 # This is the "main" function, a.k.a. the entry point.
 
 # Substitute by *your* path.
@@ -140,4 +131,3 @@ visual(prototype_matrix);
 # Run the naive classifier over the test set,
 # construct its confusion matrix, and print it. 
 cm1 = naive_classify(TrainingSet, TrainingSetY, prototype_matrix)
-printf("Error rate: %f.", compute_error_rate(cm1));
