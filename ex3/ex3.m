@@ -1,39 +1,28 @@
-
-function mean_vector = compute_prototype(T, labels, digit)
-  % compute_prototype - compute the prototype vector for digit 'digit'
+function prototype_matrix = get_prototype_matrix(T, labels)
+  % get_prototype_matrix - computes a 10 x 784 matrix in which each row
+  % is the prototype for a particular digit. For 0 < d < 10, the digit's 'd'
+  % the prototype is the dth row. And the prototype for digit '0' is the 10th
+  % row of the matrix.
   %
-  % This function takes a matrix containing the images as its rows (T),
-  % the vector (labels) of corresponding actual classes for each row of T,
-  % and the target digit (digit) for which the prototype should be computed.
+  % This function requires the training data matrix 'T', and its corresponding
+  % class vector 'labels'.
   %
-  % Returns the image vector where each "pixel" is the average value of
-  % corresponding pixels in the training set.
-  mean_vector = zeros(1, size(T)(2));
-  count = 0;
+  % Returns the prototype matrix as above.
+  prototype_matrix = zeros(10, size(T)(2));
+  class_sizes = zeros(1, 10);
   for i = 1:size(T)(1)
-    if labels(i) == digit
-      mean_vector += T(i,:);
-      count++;
+    digit = labels(i);
+    if digit == 0
+      class_sizes(10)++;
+      prototype_matrix(10,:) += T(i,:);
+    else
+      class_sizes(digit)++;
+      prototype_matrix(digit,:) += T(i,:);
     endif
   endfor
-  mean_vector /= count;
-endfunction
-
-function prototype_matrix = get_prototype_matrix(T, labels)
-  % get_prototype_matrix - compute the matrix, whose rows correspond to
-  % digit prototypes.
-  %
-  % This function takes a matrix containing the images as its rows (T),
-  % and the vector with respective digit classes (labels).
-  %
-  % Returns a 10 x 784 matrix, in which each row i (0 < i < 10) corresponds to
-  % the prototype for digit i, and the last row (num. 10) corresponds to the
-  % prototype for digit 0.
-  prototype_matrix = zeros(10, 784);
-  for i = 1:9
-    prototype_matrix(i,:) = compute_prototype(T, labels, i);
+  for i = 1:10
+    prototype_matrix(i,:) /= class_sizes(i);
   endfor
-  prototype_matrix(10,:) = compute_prototype(T, labels, 0);
 endfunction
 
 function dist = euclidean_distance(a, b)
@@ -195,9 +184,9 @@ visual(prototype_matrix);
 # Run the prototype-based classifier over the test set,
 # construct its confusion matrix, and print it along the error rate. 
 cm1 = naive_classify(TestSet, TestSetY, prototype_matrix)
-printf("Error rate of prototype-based classifier: %f.\n",
+printf('Error rate of prototype-based classifier: %f.\n',
        compute_error_rate(cm1));
        
 # Now, for the kNN-classifier.
 cm2 = knn_classify(TrainingSet, TrainingSetY, TestSet, TestSetY)
-printf("Error rate of kNN-classifier: %f.\n", compute_error_rate(cm2));
+printf('Error rate of kNN-classifier: %f.\n', compute_error_rate(cm2));
