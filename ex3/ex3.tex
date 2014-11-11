@@ -33,7 +33,7 @@
 In this exercise we implement an extremely simple prototype-based classifier to classify handwritten digits from the MNIST dataset, and compare that to a nearest-neighbor classifier.
 
 \color{black}
-The included \texttt{ex3.m} file contains well document version of the code following. Also, if the \texttt{cd} command in the file is corrected to your path to MNIST data, it can be run with the \texttt{run('ex3.m')} command.
+The included \texttt{ex3.m} file contains well documented version of the code following. Also, if the \texttt{cd} command in the file is corrected to your path to MNIST data, it can be run with the \texttt{run('ex3.m')} command.
 
 \color{blue}
 
@@ -83,30 +83,27 @@ TestSetY = y(2501:5000);
 \item[(d)] For each ot the ten classes (digits 0-9), compute a class \textit{prototype} given by the mean of all the images in the training set that belong to this class. That is, select from the training set all images of class '0' and compute the mean image of these; this should look sort of like a zero. Do this for all ten classes, and plot the resulting images. Do they look like what you would expect?
 
 \color{black}
-First of all, we need a function to compute the prototypes:
-\begin{verbatim}
-function mean_vector = compute_prototype(T, labels, digit)
-  mean_vector = zeros(1, size(T)(2));
-  count = 0;
-  for i = 1:size(T)(1)
-    if labels(i) == digit
-      mean_vector += T(i,:);
-      count++;
-    endif
-  endfor
-  mean_vector /= count;
-endfunction
-\end{verbatim}
-Next, let us construct a $10 \times 784$-matrix $M$, whose rows are the prototypes. For all digits $d \in \{ 1, 2, \dots, 9 \}$, the prototype for $d$ is $M$'s $d$th row, and for the digit 0, the prototype is $M$'s 10th row.
+First of all, we need a function to compute the matrix of prototypes (each row of the matrix is a prototype for a specific digit). This ``combined'' approach is solely for efficiency.
 \begin{verbatim}
 function prototype_matrix = get_prototype_matrix(T, labels)
-  prototype_matrix = zeros(10, 784);
-  for i = 1:9
-    prototype_matrix(i,:) = compute_prototype(T, labels, i);
+  prototype_matrix = zeros(10, size(T)(2));
+  class_sizes = zeros(1, 10);
+  for i = 1:size(T)(1)
+    digit = labels(i);
+    if digit == 0
+      class_sizes(10)++;
+      prototype_matrix(10,:) += T(i,:);
+    else
+      class_sizes(digit)++;
+      prototype_matrix(digit,:) += T(i,:);
+    endif
   endfor
-  prototype_matrix(10,:) = compute_prototype(T, labels, 0);
+  for i = 1:10
+    prototype_matrix(i,:) /= class_sizes(i);
+  endfor
 endfunction
 \end{verbatim}
+Now for each digit $d$, $0 < d < 10$, its prototype is in the matrix' $d$th row, and the prototype for digit 0 is in its 10th row (Matlab/Octave start indexing from 1).
 
 Now, running
 \begin{verbatim}
@@ -170,7 +167,7 @@ cm1 = naive_classify(TrainingSet,
                      TrainingSetY, 
                      prototype_matrix)
 \end{verbatim}
-And the confusion matrix looks like
+And the confusion matrix looks as follows:
 \begin{verbatim}
    281    20     9     4    16    12    14    13     4     0
      1   192     4     1     1    15     1     9     6     1
@@ -189,7 +186,7 @@ where the rightmost column and the bottom row corresponds to digit '0'. The corr
 \item[(f)] Classify each of the test images with a nearest neighbor classifier: For each of the test images, compute its Euclidian distance to all (2,500) of the training images, and let the predicted class be the class of the closest training image. Compute and display the resulting confusion matrix.
 
 \color{black}
-The confusion matrix is
+The confusion matrix is:
 \begin{verbatim}
    283     6     0     3     3     1     3     5     2     0
      0   216     3     0     0     0     2     9     0     0
@@ -251,6 +248,7 @@ endfunction
 
 \color{black} The error rate of the prototype-based classifier is 0.2036 and the error rate of kNN-classifier is 0.0852. I think this is due to the fact that kNN works in more global fasion as compared to the prototype-based one, yet the latter provides much better performance.
 
+It seems that digit '8' is getting confused for '3' pretty often, even worse, '3' gets confused to '9' even more frequently. Also '9' gets confused for '4' often.
 \end{itemize}
 
 \end{document}
