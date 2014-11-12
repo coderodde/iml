@@ -2,7 +2,7 @@
 
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
-\usepackage{amsmath}
+\usepackage[fleqn]{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{graphicx}
@@ -61,6 +61,93 @@ The second derivative with respect to $b$ is 2, which implies that at point $b =
 The figure below shows the class conditional probability densities $p(\textbf{x} | y)$ of 3 different classes ($y = 0$, $y = 1$, and $y = 2$): Each of the class conditionals is a uniform density over the corresponding rectangle. (For example, all vectors $\textbf{x}$ belonging to class $y = 0$ have attribute values $x_1 \in [1, 4]$ and $x_2 \in [3, 5]$, and these vectors are uniformly distributed within this rectangle.) Additionally we know that the marginal probabilities of the classes are $P(y = 0) = 0.2$, $P(y = 1) = 0.7$, $P(y = 2) = 0.1$. For each of the indicated points $\textbf{x}_1, \dots, \textbf{x}_5$, compute the posterior probability distribution over the three classes. (That is, when observing a new vector $\textbf{x}_i$, what is the probability that it belongs to class $y = 0$, to class $y = 1$, or to class $y = 2$? Remember that these probabilities should sum to one.)
 
 \includegraphics[width=\textwidth,keepaspectratio]{rectangles}
+
+\color{black}
+\noindent It follows immediately from the figure that points $\textbf{x}_1$ and $\textbf{x}_5$ will be ``classified'' with probability 1 to classes $y = 1$ and $y = 2$, respectively. Before considering the other 3 points, we state what we know or can calculate. The marginal probabilities are as follows
+\begin{align*}
+P(y = 0) &= 0.2, \\
+P(y = 1) &= 0.7, \\
+P(y = 2) &= 0.1.
+\end{align*}
+The total area covered in the figure is 24 units of area, so we can easily compute the following probabilities:
+\begin{align*}
+&P(\textbf{x} \, | \, y = 0) = 6 / 24 = 0.25, \\
+&P(\textbf{x} \, | \, y = 1) = 16 / 24 = 0.\bar{6}, \\
+&P(\textbf{x} \, | \, y = 2) = 9 / 24 = 0.375. 
+\end{align*}
+
+\subsection*{Point $\textbf{x}_3$}
+The probabilities we are interested in are
+\begin{itemize}
+  \item $P(y = 0 \, | \, \textbf{x}_3) = 0$ as the point is outside the class $y = 0$,
+  \item $P(y = 1 \, | \, \textbf{x}_3)$,
+  \item $P(y = 2 \, | \, \textbf{x}_3)$.
+\end{itemize}
+The total probability is
+\begin{align*}
+P(\textbf{x}) &= \sum_{i = 0}^2 P(\textbf{x} \, | \, y = i)P(y = i) \\
+                    &= \overbrace{P(\textbf{x} \, | \, y = 0)}^0 P(y = 0) + P(\textbf{x} \, | \, y = 1)P(y = 1) + P(\textbf{x} \, | \, y = 2)P(y = 2) \\
+                    &= 0.\bar{66} \times 0.7 + 0.375 \times 0.1 \\
+                    &\approx 0.50417.
+\end{align*}
+\begin{align*}
+P(y = 1 \, | \, \textbf{x}_3) &= \frac{ P( \textbf{x}_3 \, | \, y = 1)P(y = 1)}{ P(\textbf{x}) } \\
+                                          &= \frac{ 0.\bar{66} \times 0.7}{0.50417} \\
+                                          &\approx 0.92562. \\
+P(y = 2 \, | \, \textbf{x}_3) &= \frac{P(\textbf{x}_3 \, | \, y = 2)P(y = 2)}{P(\textbf{x})} \\
+                                          &= \frac{0.375 \times 0.1}{0.50417} \\
+                                          &\approx 0.074380. 
+\end{align*}
+Note that two above probabilities sum to 1, as expected.
+\subsection*{Point $\textbf{x}_4$}
+The probabilities we are interested in here are
+\begin{itemize}
+  \item $P(y = 0 \, | \, \textbf{x}_4)$,
+  \item $P(y = 1 \, | \, \textbf{x}_4) = 0$ as the point is outside the class $y = 1$,
+  \item $P(y = 2 \, | \, \textbf{x}_4)$.
+\end{itemize}
+The total probability is
+\begin{align*}
+P(\textbf{x}) &= \sum_{i = 0}^2 P(\textbf{x} \, | \, y = i)P(y = i) \\
+                    &= P(\textbf{x} \, | \, y = 0) P(y = 0) + \overbrace{P(\textbf{x} \, | \, y = 1)}^0 P(y = 1) + P(\textbf{x} \, | \, y = 2)P(y = 2) \\
+                    &= 0.25 \times 0.2 + 0.375 \times 0.1 \\
+                    &\approx 0.0875.
+\end{align*}
+\begin{align*}
+P(y = 0 \, | \, \textbf{x}_4) &= \frac{ P( \textbf{x}_4 \, | \, y = 0)P(y = 0)}{ P(\textbf{x}) } \\
+                                          &= \frac{ 0.25 \times 0.2}{0.0875} \\
+                                          &\approx 0.57143 \\
+P(y = 2 \, | \, \textbf{x}_4) &= \frac{P(\textbf{x}_4 \, | \, y = 2)P(y = 2)}{ P(\textbf{x}) } \\
+                                          &= \frac{0.375 \times 0.1}{0.0875} \\
+                                          &\approx 0.42857. 
+\end{align*}
+\subsection*{Point $\textbf{x}_2$}
+The probabilities we are interested in are
+\begin{itemize}
+ \item $P(y = 0 \, | \, \textbf{x}_2)$,
+ \item $P(y = 1 \, | \, \textbf{x}_2)$,
+ \item $P(y = 2 \, | \, \textbf{x}_2)$,
+\end{itemize}
+Also,
+\begin{align*}
+P(\textbf{x}) &= \sum_{i = 0}^2 P(\textbf{x} \, | \, y = i) P(y = i) \\
+                    &= 0.2 \times P(\textbf{x} \, | \,  y = 0) + 0.7 \times P(\textbf{x} \, | \, y = 1) + 0.1 \times P(\textbf{x} \, | \, y = 2) \\
+                    &= 0.2 \times 0.25 + 0.7 \times 0.\bar{6} + 0.1 \times 0.375 \\
+                    &\approx 0.55417.
+\end{align*}
+
+\begin{align*}
+   P(y = 0 \, | \, \textbf{x}_1) &= \frac{P(\textbf{x} \, | \, y = 0)P(y = 0)}{P(\textbf{x})} \\
+                                             &= \frac{0.25 \times 0.2}{0.55417} \\
+                                             &= 0.090255. \\
+   P(y = 1 \, | \, \textbf{x}_1) &= \frac{P(\textbf{x} \, | \, y = 1)P(y = 1)}{P(\textbf{x})} \\
+                                             &= \frac{0.\bar{6} \times 0.7}{0.55417} \\
+                                             &= 0.8421. \\
+   P(y = 2 \, | \, \textbf{x}_1) &= \frac{P(\textbf{x} \, | \, y = 2)P(y = 2)}{P(\textbf{x})} \\
+                                             &= \frac{0.375 \times 0.1}{0.55417} \\
+                                             &= 0.067669. 
+\end{align*}
+Once again, the above probabilities sum to one, so they define a valid probability distribution.
 
 \color{blue}
 \section*{Problem 4 (15 points)}
