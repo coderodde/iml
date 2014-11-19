@@ -295,12 +295,164 @@ P(Y = 2 \, | \, (0, 1)) &= \frac{ P(X_1 = 0 \, | \, Y = 2)P(X_2 = 1 \, | \, Y = 
 \end{align*}
 
 \subsubsection*{$(0, 2)$}
+If $\textbf{X} = (0, 2)$, and
+\begin{align*}
+P(\textbf{X}) &= \sum_{i = 0}^2 P(X_1 \, | \, Y = i)P(X_2 \, | \, Y = i)P(Y = i) \\
+             &= (0.2 + 0.4 + 0.0) \times (0.0 + 0.1) \times 0.4 \\
+             &+ (0.6 + 0.1 + 0.1) \times (0.1 + 0.0) \times 0.3 \\
+             &+ (0.1 + 0.3 + 0.2) \times (0.2 + 0.0) \times 0.3 \\
+             &= 0.6 \times 0.1 \times 0.4 + 0.8 \times 0.1 \times 0.3 + 0.6 \times 0.2 \times 0.3 \\
+             &= 0.024 + 0.024 + 0.036 \\
+             &= 0.084.
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | \, (0, 2)) &= \frac{P(X_1= 0 \, | \, Y = 0)P(X_2 = 2 \, | \, Y = 0)P(Y = 0)}{ 0.084 } \\
+     &= \frac{ (0.2 + 0.4 + 0.0) \times (0.0 + 0.1) \times 0.4 }{ 0.084 } \\
+     &= \frac{ 0.6 \times 0.1 \times 0.4 }{ 0.084 } \\
+     &= \frac{ 0.024 }{ 0.084 } \\
+     &\approx 0.286,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | \, (0, 2)) &= \frac{ P(X_1 = 0 \, | \, Y = 1)P(X_2 = 2\, | \,  Y = 1)P(Y = 1)}{ 0.084 } \\
+     &= \frac{ (0.6 + 0.1 + 0.1) \times (0.1 + 0.0) \times 0.3 }{ 0.084 } \\
+     &= \frac{ 0.8 \times 0.1 \times 0.3 }{ 0.084 } \\
+     &= \frac{ 0.024 }{ 0.084 } \\
+     &\approx 0.286,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | \, (0, 2)) &= \frac{ P(X_1 = 0 \, | \, Y = 2)P(X_2 = 2 \, | \, Y = 2)P(Y = 2) }{ 0.084 } \\
+     &= \frac{ (0.1 + 0.3 + 0.2) \times (0.2 + 0.0) \times 0.3 }{ 0.084 } \\
+     &= \frac{ 0.6 \times 0.2 \times 0.3}{ 0.084 } \\
+     &= \frac{ 0.036 }{ 0.084 } \\
+     &\approx 0.429.
+\end{align*}
 
 \subsubsection*{$(1, 0)$}
+If $\textbf{X} = (1, 0)$, and
+\begin{align*}
+P(\textbf{X}) &= \sum_{i = 0}^2 P(X_1 \, | \, Y = i)P(X_2 \, | \, Y = i)P(Y = i) \\
+             &= (0.1 + 0.2 + 0.1) \times (0.2 + 0.1) \times 0.4 \\
+             &+ (0.1 + 0.1 + 0.0) \times (0.6 + 0.1) \times 0.3 \\
+             &+ (0.4 + 0.0 + 0.0) \times (0.1 + 0.4) \times 0.3 \\
+             &= 0.4 \times 0.3 \times 0.4 + 0.2 \times 0.7 \times 0.3 + 0.4 \times 0.5 \times 0.3 \\
+			 &= 0.048 + 0.042 +   0.06 \\
+			 &= 0.15.
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | \, (1, 0)) &= \frac{P(X_1= 1 \, | \, Y = 0)P(X_2 = 0 \, | \, Y = 0)P(Y = 0)}{ 0.15 } \\
+     &= \frac{ (0.1 + 0.2 + 0.1) \times (0.2 + 0.1) \times 0.4 }{ 0.15 } \\
+     &= \frac{ 0.4 \times 0.3 \times 0.4 }{ 0.15 } \\
+     &= \frac{ 0.048 }{ 0.15 } \\
+     &= 0.32,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | \, (1, 0)) &= \frac{ P(X_1 = 1 \, | \, Y = 1)P(X_2 = 0 \, | \,  Y = 1)P(Y = 1)}{ 0.15 } \\
+     &= \frac{ (0.1 + 0.1 + 0.0) \times (0.6 + 0.1) \times 0.3 }{ 0.15 } \\
+     &= \frac{ 0.2 \times 0.7 \times 0.3 }{ 0.15 } \\
+     &= \frac{ 0.042 }{ 0.15 } \\
+     &= 0.28,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | \, (1, 0)) &= \frac{ P(X_1 = 1 \, | \, Y = 2)P(X_2 = 0 \, | \, Y = 2)P(Y = 2) }{ 0.15 } \\
+     &= \frac{ (0.4 + 0.0 + 0.0) \times (0.1 + 0.4) \times 0.3 }{ 0.15 } \\
+     &= \frac{ 0.4 \times 0.5 \times 0.3}{ 0.15 } \\
+     &= \frac{ 0.06 }{ 0.15 } \\
+     &= 0.4.
+\end{align*}
 
 \subsubsection*{$(1, 1)$}
+If $\textbf{X} = (1, 1)$, and
+\begin{align*}
+P(\textbf{X}) &= \sum_{i = 0}^2 P(X_1 \, | \, Y = i)P(X_2 \, | \, Y = i)P(Y = i) \\
+             &= (0.1 + 0.2 + 0.1) \times (0.4 + 0.2) \times 0.4 \\
+             &+ (0.1 + 0.1 + 0.0) \times (0.1 + 0.1) \times 0.3 \\
+             &+ (0.4 + 0.0 + 0.0) \times (0.3 + 0.0) \times 0.3 \\
+             &= 0.4 \times 0.6 \times 0.4 + 0.2 \times 0.2 \times 0.3 + 0.4 \times 0.3 \times 0.3 \\
+			 &= 0.096 + 0.012 + 0.036 \\
+			 &= 0.144.
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | \, (1, 1)) &= \frac{P(X_1= 1 \, | \, Y = 0)P(X_2 = 1 \, | \, Y = 0)P(Y = 0)}{ 0.144 } \\
+     &= \frac{ (0.1 + 0.2 + 0.1) \times (0.4 + 0.2) \times 0.4 }{ 0.144 } \\
+     &= \frac{ 0.4 \times 0.6 \times 0.4 }{ 0.144 } \\
+     &= \frac{ 0.096 }{ 0.144 } \\
+     &\approx 0.667,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | \, (1, 1)) &= \frac{ P(X_1 = 1 \, | \, Y = 1)P(X_2 = 1 \, | \,  Y = 1)P(Y = 1)}{ 0.144 } \\
+     &= \frac{ (0.1 + 0.1 + 0.0) \times (0.1 + 0.1) \times 0.3 }{ 0.144 } \\
+     &= \frac{ 0.2 \times 0.2 \times 0.3 }{ 0.144 } \\
+     &= \frac{ 0.012 }{ 0.144 } \\
+     &\approx 0.083,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | \, (1, 1)) &= \frac{ P(X_1 = 1 \, | \, Y = 2)P(X_2 = 1 \, | \, Y = 2)P(Y = 2) }{ 0.144 } \\
+     &= \frac{ (0.4 + 0.0 + 0.0) \times (0.3 + 0.0) \times 0.3 }{ 0.144 } \\
+     &= \frac{ 0.4 \times 0.3 \times 0.3}{ 0.144 } \\
+     &= \frac{ 0.036 }{ 0.144 } \\
+     &= 0.25.
+\end{align*}
 
 \subsubsection*{$(1, 2)$}
+If $\textbf{X} = (1, 2)$, and
+\begin{align*}
+P(\textbf{X}) &= \sum_{i = 0}^2 P(X_1 \, | \, Y = i)P(X_2 \, | \, Y = i)P(Y = i) \\
+             &= (0.1 + 0.2 + 0.1) \times (0.0 + 0.1) \times 0.4 \\
+             &+ (0.1 + 0.1 + 0.0) \times (0.1 + 0.0) \times 0.3 \\
+             &+ (0.4 + 0.0 + 0.0) \times (0.2 + 0.0) \times 0.3 \\
+             &= 0.4 \times 0.1 \times 0.4 + 0.2 \times 0.1 \times 0.3 + 0.4 \times 0.2 \times 0.3 \\
+			 &=  0.016 + 0.006 +0.024 \\
+			 &= 0.046.
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | \, (1, 2)) &= \frac{P(X_1= 1 \, | \, Y = 0)P(X_2 = 2 \, | \, Y = 0)P(Y = 0)}{ 0.046 } \\
+     &= \frac{ (0.1 + 0.2 + 0.1) \times (0.0 + 0.1) \times 0.4 }{ 0.046 } \\
+     &= \frac{ 0.4 \times 0.1 \times 0.4 }{ 0.046 } \\
+     &= \frac{ 0.016 }{ 0.046 } \\
+     &\approx 0.348,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | \, (1, 1)) &= \frac{ P(X_1 = 1 \, | \, Y = 1)P(X_2 = 2 \, | \,  Y = 1)P(Y = 1)}{ 0.046 } \\
+     &= \frac{ (0.1 + 0.1 + 0.0) \times (0.1 + 0.0) \times 0.3 }{ 0.046 } \\
+     &= \frac{ 0.2 \times 0.1 \times 0.3 }{ 0.046 } \\
+     &= \frac{ 0.006 }{ 0.046 } \\
+     &\approx 0.130,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | \, (1, 1)) &= \frac{ P(X_1 = 1 \, | \, Y = 2)P(X_2 = 2 \, | \, Y = 2)P(Y = 2) }{ 0.046 } \\
+     &= \frac{ (0.4 + 0.0 + 0.0) \times (0.2 + 0.0) \times 0.3 }{ 0.046 } \\
+     &= \frac{ 0.4 \times 0.2 \times 0.3}{ 0.046 } \\
+     &= \frac{ 0.024 }{ 0.046 } \\
+     &= 0.522.
+\end{align*}
+
+\subsubsection*{Summary}
+\begin{tabular}{|l|c|c|c|}
+  \hline
+  & $Y = 0$ & $Y = 1$ & $Y = 2$ \\
+  \hline
+  $(0, 0)$ & 0.218 & 0.509 & 0.273 \\
+  \hline
+  $(0, 1)$ & 0.585 & 0.195 & 0.219 \\
+  \hline
+  $(0, 2)$ & 0.286 & 0.286 & 0.429 \\
+  \hline
+  $(1, 0)$ & 0.32 & 0.28 & 0.4 \\
+  \hline
+  $(1, 1)$ & 0.667 & 0.083 & 0.25 \\
+  \hline
+  $(1, 2)$ & 0.348 & 0.130 & 0.522 \\
+  \hline
+\end{tabular}
+
+The Naïve Bayes classifier is
+\begin{align*}
+Y(\textbf{X}) = \begin{cases}
+0 & \mbox{if } \textbf{X} \in \{ (0, 1), (1, 1) \} \\ 
+1 & \mbox{if } \textbf{X} =  (0, 0) \\
+2 & \mbox{if } \textbf{X} \in \{ (0, 2), (1, 0), (1, 2) \}.
+\end{cases}
+\end{align*}
 
 \section*{Problem 2 (3 points)}
 
