@@ -1,0 +1,168 @@
+\documentclass[10pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[ruled,linesnumbered,noend]{algorithm2e}
+\usepackage{empheq}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+
+\title{Introduction to Machine Learning, Fall 2014 - Exercise session IV}
+\author{Rodion ``rodde'' Efremov \\ 013593012}
+
+\begin{document}
+ \maketitle
+
+\section*{Problem 1 (6 points)}
+We seek to compute 
+\[
+P(Y \,| \, \textbf{X}) = \frac{P(\textbf{X} \, | \, Y) P(Y)}{P(\textbf{X})},
+\]
+where
+\[
+P(\textbf{X}) = \sum_{i = 0}^2 P(\textbf{X} \, | \, Y = i)P(Y = i).
+\]
+\subsection*{(0, 0)}
+If $\textbf{X} = (0,0)$, 
+\begin{align*}
+P((0, 0)) &= \sum_{i = 0}^2 P((0, 0) \, | \, Y = i)P(Y = i) \\
+             &= 0.2 \times 0.4 + 0.6 \times 0.3 + 0.1 \times 0.3 \\
+             &= 0.08 + 0.18 + 0.03 \\
+             &= 0.29.
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | (0,0)) &= \frac{P((0, 0) \, | \, Y = 0)P(Y = 0)}{P((0,0))} \\
+                           &= \frac{0.2 \times 0.4}{ 0.29 } \\
+                           &= \frac{0.08}{0.29} \\
+                           &\approx 0.276,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | (0,0)) &= \frac{P((0, 0) \, | \, Y = 1)P(Y = 1)}{P((0, 0))} \\
+                           &= \frac{0.6 \times 0.3}{ 0.29 } \\
+                           &= \frac{0.18}{0.29} \\
+                           &\approx 0.621,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | (0,0)) &= \frac{P((0, 0) \, | \, Y = 2)P(Y = 2)}{P((0, 0))} \\
+                           &= \frac{0.1 \times 0.3}{ 0.29 } \\
+                           &= \frac{0.03}{0.29} \\
+                           &\approx 0.103.
+\end{align*}
+
+\subsection*{(0, 1)}
+If $\textbf{X} = (0,1)$, 
+\begin{align*}
+P((0, 1)) &= \sum_{i = 0}^2 P((0, 1) \, | \, Y = i)P(Y = i) \\
+             &= 0.4 \times 0.4 + 0.1 \times 0.3 + 0.3 \times 0.3 \\
+             &= 0.16 + 0.03 + 0.09 \\
+             &= 0.28.
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | (0,1)) &= \frac{P((0, 1) \, | \, Y = 0)P(Y = 0)}{ 0.28 } \\
+                           &= \frac{0.4 \times 0.4}{ 0.28 } \\
+                           &= \frac{0.16}{ 0.28 } \\
+                           &\approx 0.571,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | (0,1)) &= \frac{P((0, 1) \, | \, Y = 1)P(Y = 1)}{ 0.28 } \\
+                           &= \frac{0.1 \times 0.3}{ 0.28 } \\
+                           &= \frac{0.03 }{ 0.28 } \\
+                           &\approx 0.107,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | (0,1)) &= \frac{P((0, 1) \, | \, Y = 2)P(Y = 2)}{ 0.28 } \\
+                           &= \frac{ 0.3 \times 0.3 }{ 0.28 } \\
+                           &= \frac{ 0.09 }{ 0.28 } \\
+                           &\approx 0.321.
+\end{align*}
+
+\subsection*{(0, 2)}
+If $\textbf{X} = (0,2)$, 
+\begin{align*}
+P((0, 2)) &= \sum_{i = 0}^2 P((0, 2) \, | \, Y = i)P(Y = i) \\
+             &= 0.0 \times 0.4 + 0.1 \times 0.3 + 0.2 \times 0.3 \\
+             &= 0.03 + 0.06 \\
+             &= 0.09,
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | (0,2)) &= \frac{P((0, 2) \, | \, Y = 0)P(Y = 0)}{ 0.09 } \\
+                           &= \frac{0.0 \times 0.4}{ 0.09 } \\
+                           &= 0,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | (0,2)) &= \frac{P((0, 2) \, | \, Y = 1)P(Y = 1)}{ 0.09 } \\
+                           &= \frac{0.1 \times 0.3}{ 0.09 } \\
+                           &= \frac{ 0.03 }{ 0.09 } \\
+                           &\approx 0.333,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | (0,2)) &= \frac{P((0, 2) \, | \, Y = 2)P(Y = 2)}{ 0.09 } \\
+                           &= \frac{ 0.2 \times 0.3 }{ 0.09 } \\
+                           &= \frac{ 0.06 }{ 0.09 } \\
+                           &\approx 0.666.
+\end{align*}
+
+\subsection*{(1, 0)}
+If $\textbf{X} = (1, 0)$, 
+\begin{align*}
+P((1, 0)) &= \sum_{i = 0}^2 P((1, 0) \, | \, Y = i)P(Y = i) \\
+             &= 0.1 \times 0.4 + 0.1 \times 0.3 + 0.4 \times 0.3 \\
+             &= 0.04 + 0.03 + 0.12 \\
+             &= 0.19,
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | (1,0)) &= \frac{P((1, 0) \, | \, Y = 0)P(Y = 0)}{ 0.19 } \\
+                           &= \frac{0.1 \times 0.4}{ 0.19 } \\
+                           &= \frac{ 0.04 }{ 0.19 } \\
+                           &\approx 0.211,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | (1,0)) &= \frac{ P((1, 0) \, | \, Y = 1)P(Y = 1) }{ 0.19 } \\
+                           &= \frac{ 0.1 \times 0.3 }{ 0.19 } \\
+                           &= \frac{ 0.03 }{ 0.19 } \\
+                           &\approx 0.158,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | (1,0)) &= \frac{P((1, 0) \, | \, Y = 2)P(Y = 2)}{ 0.19 } \\
+                           &= \frac{ 0.4 \times 0.3 }{ 0.19 } \\
+                           &= \frac{ 0.12 }{ 0.19 } \\
+                           &\approx 0.632.
+\end{align*}
+
+\subsection*{(1, 1)}
+If $\textbf{X} = (1, 0)$, 
+\begin{align*}
+P((1, 0)) &= \sum_{i = 0}^2 P((1, 0) \, | \, Y = i)P(Y = i) \\
+             &= 0.1 \times 0.4 + 0.1 \times 0.3 + 0.4 \times 0.3 \\
+             &= 0.04 + 0.03 + 0.12 \\
+             &= 0.19,
+\end{align*}
+\begin{align*}
+P(Y = 0 \, | (1,0)) &= \frac{P((1, 0) \, | \, Y = 0)P(Y = 0)}{ 0.19 } \\
+                           &= \frac{0.1 \times 0.4}{ 0.19 } \\
+                           &= \frac{ 0.04 }{ 0.19 } \\
+                           &\approx 0.211,
+\end{align*}
+\begin{align*}
+P(Y = 1 \, | (1,0)) &= \frac{ P((1, 0) \, | \, Y = 1)P(Y = 1) }{ 0.19 } \\
+                           &= \frac{ 0.1 \times 0.3 }{ 0.19 } \\
+                           &= \frac{ 0.03 }{ 0.19 } \\
+                           &\approx 0.158,
+\end{align*}
+\begin{align*}
+P(Y = 2 \, | (1,0)) &= \frac{P((1, 0) \, | \, Y = 2)P(Y = 2)}{ 0.19 } \\
+                           &= \frac{ 0.4 \times 0.3 }{ 0.19 } \\
+                           &= \frac{ 0.12 }{ 0.19 } \\
+                           &\approx 0.632.
+\end{align*}
+\section*{Problem 2 (3 points)}
+
+\section*{Problem 3 (15 points)}
+
+\end{document}
