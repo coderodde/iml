@@ -82,17 +82,43 @@ In summary:
 \end{table}
 According to the above table, the set A is slightly more pure than B.
 
-Now, let us restrict the amount of car types only to two. (Say, Lada and Rolls Royce.) Let $N$ be the total amount of cars, and let $L$ denote the amount of Lada's (so that we have $N - L$ RR's). Now the entropy of such a set is
-\begin{align*}
-& -\frac{L}{N} \log \frac{L}{N} - \frac{N - L}{N} \log \frac{N - L}{N} = \\
-& \frac{L}{N}\log \frac{N}{L} + \Bigg( 1 - \frac{L}{N} \Bigg) \log \frac{N}{N - L} = \\
-& \frac{L}{N} \log N - \frac{L}{N} \log L + \Bigg( 1 - \frac{L}{N} \Bigg) \Bigg( \log N - \log (N - L) \Bigg) = \\
-& -\frac{L}{N} \log L + \log N - \log (N - L) + \frac{L}{N} \log(N - L) = \\
-&a
-\end{align*}
+Suppose a set contains $N$ elements in total, and $M$ of them belong to one type of elements and $N - M$ to the other one. Now, all the impurity measure will attain their maximum value at around $M = \frac{N}{2}$, and all measures will be monotonically increasing on $[0, \frac{N}{2})$, and monotonically decreasing on $(\frac{N}{2}, N]$, so improvement in, say, Gini index will lead to improvement in classification error or entropy, and vice versa. (As can be seen in a figure of course slides.)
 
 \color{blue}
 \section*{Problem 2 (3 points)}
+Consider a binary classification problem with the following set of attributes and attribute values:
+\begin{itemize}
+  \item Air conditioner = \{ Working, Broken \}
+  \item Engine = \{ Good, Bad \}
+  \item Mileage = \{ High, Medium, Low \}
+  \item Rust = \{ Yes, No \}
+\end{itemize}
+Suppose a rule-based classifier produces the following rule set:
+\begin{itemize}
+  \item (Mileage = High) $\leftarrow$ (Value = Low)
+  \item (Mileage = Low) $\leftarrow$ (Value = High)
+  \item ((Air conditioner = Working) and (Engine = Good)) $\leftarrow$ (Value = High)
+  \item ((Air conditioner = Working) and (Engine = Bad)) $\leftarrow$ (Value = Low)
+  \item (Air conditioiner = Broken) $\leftarrow$ (Value = Low)
+\end{itemize}
+Given the above, answer the following:
+\begin{enumerate}
+  \item[(a)] Are the rules mutually exclusive?
+  \color{black} Yes, they are. On each record, at most one rule is triggered.
+  
+  \color{blue}
+  \item[(b)] Is the rule set exhaustive? 
+  \color{black} Suppose that Mileage = Medium. This is not covered by two first rules, but it all boils down to the fact that Air conditioner will ``catch'' all the records regardless of the state of Engine. So, yes, the rule set is exhaustive.
+
+  \color{blue}
+  \item[(c)] Is ordering needed for this set of rules?
+  \color{black} No, it doesn't appear that way: mileage is a good predictor of the value of a car, so it is justified to have the first two rules where they are.
+  
+  \color{blue}
+  \item[(d)] Do you need a default class for the rule set?
+  \color{black}
+  No, we don't need that since the rules are exhaustive.
+\end{enumerate}
 
 \color{blue}
 \section*{Problem 3 (3 points)}
