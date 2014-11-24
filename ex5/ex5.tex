@@ -13,6 +13,8 @@
 \usepackage{tikz}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 
+\DeclareMathOperator*{\argmin}{arg\, min}
+
 \title{Introduction to Machine Learning, Fall 2014 - Exercise session V}
 \author{Rodion ``rodde'' Efremov \\ 013593012}
 
@@ -122,6 +124,49 @@ Given the above, answer the following:
 
 \color{blue}
 \section*{Problem 3 (3 points)}
+Given a set of $N$ points $y_1, \dots, y_N$, with each $y_i \in \mathbb{R}$, show that...
+\begin{itemize}
+  \item[(a)] ... the value $y^{\ast}$ which minimizes the sum of \textit{squared} errors, i.e.
+ \[
+ y^{\ast} = \underset{\hat{y}}{\argmin} \sum_{i = 1}^N (y_i - \hat{y})^2
+ \]
+ is given by the \textit{mean} of the $y_i$, i.e. $y^\ast = \sum_i y_i / N$.
+ 
+ \color{black} 
+ Suppose we have 
+ \[
+ \sum_{i = 1}^N (y_i - t)^2 = \sum_{i = 1}^N (y_i^2 - 2y_it + t^2).
+ \]
+ Now the first derivative of the above sum with respect to $t$ is given by
+ \[
+ \sum_{i = 1}^N 2t - 2y_i,
+ \]
+ and the second derivative of the same sum is given by
+ \[
+ \sum_{i = 1}^N 2 = 2N > 0.
+ \]
+ The original sum is, therefore, minimized (2nd derivative $> 0$) at point, where the first derivative is zero, i.e.
+ \begin{align*}
+ \sum_{i = 1}^N 2t - 2y_i &= 0 \\
+ \sum_{i = 1}^N t - y_i &= 0 \\
+ Nt &= \sum_{i = 1}^N y_i \\
+ t &= \frac{\sum_{i = 1}^N y_i}{N},
+ \end{align*}
+ which proves that the mean of the $y_i$ minimizes the sum of squared errors.
+ 
+ \color{blue}
+ \item[(b)] ... the value $y^{\ast}$ which minimizes the sum of \textit{absolute} errors, i.e.
+ \[
+ y^\ast = \underset{\hat{y}}{\argmin} \sum_{i = 1}^N |y_i - \hat{y}|
+ \] 
+ is given by the \textit{median} of the $y_i$. [Hint for part (b): Break the sum into parts corresponding to \textit{pairs} of observations, pairing the smallest with the largest point, the second-smallest with the second-largest point, etc.]
+ 
+ \color{black}
+ Let us rephrase the sum. If $N$ is even, we have
+ \[
+ \sum_{i = 1}^N |y_i - \hat{y}| = \sum_{i = 1}^{N / 2} |y_i - \hat{y}| + |y_{N + 1 - i} - \hat{y}|
+ \]
+\end{itemize}
 
 \color{blue}
 \section*{Problem 4 (15 points)}
