@@ -163,12 +163,61 @@ Given a set of $N$ points $y_1, \dots, y_N$, with each $y_i \in \mathbb{R}$, sho
  
  \color{black}
  Let us rephrase the sum. If $N$ is even, we have
- \[
- \sum_{i = 1}^N |y_i - \hat{y}| = \sum_{i = 1}^{N / 2} |y_i - \hat{y}| + |y_{N + 1 - i} - \hat{y}|
- \]
+ \begin{align*}
+ \sum_{i = 1}^N |y_i - \hat{y}| &= \sum_{i = 1}^{N / 2} |y_i - \hat{y}| + |y_{N + 1 - i} - \hat{y}|
+ \end{align*}
 \end{itemize}
 
 \color{blue}
 \section*{Problem 4 (15 points)}
+In this problem, we will test linear regression on a simple synthetic dataset. We will use the following polynomial as the underlying target function
+\[
+y = f(x) = 2 + x - 0.5 x^2.
+\]
+First, randomly sample 30 points $x_i$ from the uniform distribution on the interval $[-3,3]$. Then, randomly generate the $y_i$ using
+\[
+y_i = f(x_i) + n_i,
+\]
+where $f$ is as defined above, and the $n_i$ are i.i.d. normal random variables with zero mean and standard deviation 0.4. The resulting 30 pairs $(x_i, y_i)$ is your data set for this exercise.
+\begin{itemize}
+  \item[(a)] First, let's fit polynomials of order 0 to 10 to this dataset using linear regression, minimizing the sum of squares error. That is, fit functions of the form
+  \[
+  \hat{y} = \sum_{p = 0}^K w_px^p
+  \]
+  with $K = 0, \dots, 10$ to the data. For instance, for $K = 4$ the polynomial to fit is 
+  \[
+  \hat{y} = w_0 + w_1x + w_2x^2 + w_3x^3 + w_4x^4.
+  \]
+  For each of the 11 values of $K$, produce a separate plot showing the datapoints $(x_i, y_i)$ and the fitted polynomial. (Plot the polynomial as a curve, in the full interval $[-3, 3]$, overlayed on the scatterplot of the points.) You should see that as the order of the polynomial $K$ increases, the curve comes closer and closer to fitting all the datapoints. For each value of $K$, calculate the coefficient of determination $R^2$ and comment on the behaviour of this measure as a function of $K$.
+  
+  \color{black}
+  As to generate the 30 $x_i$, let us type
+  \begin{verbatim}
+  xs = unifrnd(-3, 3, 1, 30);
+  \end{verbatim}
+  Next, let us declare the function $f$:
+  \begin{verbatim}
+  f = @(x) 2 + x - 0.5 * x^2
+  \end{verbatim}
+  Create the $y_i$ vector:
+  \begin{verbatim}
+  ys = zeros(1, 30);
+  for i = 1:30
+    ys(i) = f(xs(i)) + normrnd(0, 0.4);
+  end
+  \end{verbatim}
+  
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K0}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K1}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K2}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K3}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K4}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K5}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K6}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K7}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K8}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K9}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K10}
+\end{itemize}
 
 \end{document}
