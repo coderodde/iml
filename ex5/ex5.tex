@@ -268,6 +268,63 @@ where $f$ is as defined above, and the $n_i$ are i.i.d. normal random variables 
     ysplit(i,:) = ys( 3 * (i - 1) + 1 : (i - 1) * 3 + 3);
   end
   \end{verbatim}
+  The rest is given by:
+  \begin{verbatim}# For the error sums.
+errs = zeros(1, 12);
+
+# Stored polynomial coefficients.
+coefs = zeros(12, 12);
+
+# For each value of K, do...
+for K = 0:11
+    printf("--- K = %d.\n", K);
+    # For each subset, do...
+    for j = 1:10
+        # Copy the data points.
+        xdata = xs;
+        ydata = ys;
+        # Obtain the jth subset.
+        xjth = xdata(3 * (j - 1) + 1 : 3 * (j - 1) + 3);
+        yjth = ydata(3 * (j - 1) + 1 : 3 * (j - 1) + 3);
+        # Remove the jth subset.
+        xdata(3 * (j - 1) + 1 : 3 * (j - 1) + 3) = [];
+        ydata(3 * (j - 1) + 1 : 3 * (j - 1) + 3) = [];
+        # Fit a polynomial of degree K over the datapoints.
+        p = polyfit(xdata, ydata, K);
+        # Add the coefficients.
+        for kk = 0:K
+            coefs(K + 1, kk + 1) += p(kk + 1) / 12;
+        end
+        # Evaluate the jth subset.
+        fjth = polyval(p, xjth);
+        err = sum_of_squared_errors(fjth, yjth);
+        printf('Sum of squared errors on %dth subset is %f.\n', j, err);
+        errs(K + 1) += err;
+    end
+    # Print the error sum.
+    printf("-- Error sum is %f. ", errs(K + 1));
+    # Print the coefficients of the polynomial.
+    printf("Coefficients: ");
+    for kk = 0:K
+        printf("%f ", coefs(K + 1,kk + 1));
+    end
+    printf("\n");
+end
+
+# Prepare to plot K-to-error graph.
+Ks = zeros(1, 12);
+for K = 0:11
+    Ks(K + 1) = K;
+end
+figure
+plot(Ks, errs);
+end
+  \end{verbatim}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{KsVersusErrors}
+  It can be seen that the error function decreases rapidly from $K = 0$ to $K = 2$, where it approximately attains the minimum value, which carried over to $K = 4$, after which it start to grow towards higher values of $K$ until it reaches $K = 9$, where things go out of control. (Depends on random number generator: sometimes values on the right side of plot do not ``blow out.'')
+  
+  Increasing the $K$ does not pay off after $K = 4$. The sums of squared errors is minimized at $K = 2$, where the average coefficients over all $j$s are $1.76, 0.841, -0.452$, which resemble the coefficients $2, 1, -0.5$.
+  
 \end{itemize}
 
 \end{document}
