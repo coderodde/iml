@@ -191,6 +191,26 @@ where $f$ is as defined above, and the $n_i$ are i.i.d. normal random variables 
   For each of the 11 values of $K$, produce a separate plot showing the datapoints $(x_i, y_i)$ and the fitted polynomial. (Plot the polynomial as a curve, in the full interval $[-3, 3]$, overlayed on the scatterplot of the points.) You should see that as the order of the polynomial $K$ increases, the curve comes closer and closer to fitting all the datapoints. For each value of $K$, calculate the coefficient of determination $R^2$ and comment on the behaviour of this measure as a function of $K$.
   
   \color{black}
+  First of all, run a declaration of $R^2$ stuff:
+  \begin{verbatim}
+  run('rsquared.m');
+  \end{verbatim}
+  which is defined as
+  \begin{verbatim}
+  function [r] = rsquared(xs, ys)
+    ssres = 0;
+    sstot = 0;
+
+    mean_x = mean(xs);
+
+    for i = 1:length(xs)
+        sstot += (xs(i) - mean_x)^2;
+        ssres += (xs(i) - ys(i))^2;
+    end
+
+    r = 1 - ssres / sstot;
+  end
+  \end{verbatim}
   As to generate the 30 $x_i$, let us type
   \begin{verbatim}
   xs = unifrnd(-3, 3, 1, 30);
@@ -206,6 +226,21 @@ where $f$ is as defined above, and the $n_i$ are i.i.d. normal random variables 
     ys(i) = f(xs(i)) + normrnd(0, 0.4);
   end
   \end{verbatim}
+  Now, data is here. Next
+  \begin{verbatim}
+  for K = 0:10
+    figure;
+    plot(xs, ys, 'o');
+    hold on;
+    p = polyfit(xs, ys, K);
+    xt = linspace(-3, 3);
+    fs = polyval(p, xt);
+    fs2 = polyval(p, xs);
+    plot(xt, fs, 'r-');
+    title(["K = ", num2str(K), " R-squared = ", num2str(rsquared(xs, fs2))]);
+    legend('Data points', 'Fitting polynomial', 'location', 'southwest');
+  end
+  \end{verbatim}    
   
   \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K0}
   \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K1}
@@ -218,6 +253,21 @@ where $f$ is as defined above, and the $n_i$ are i.i.d. normal random variables 
   \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K8}
   \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K9}
   \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{K10}
+  
+  As can be seen from the images above, the $R^2$ attains its maximum value at $K = 1$, after which it is strictly decreasing, and it seems like its rate of ``growth'' is similar to $C - \log K$, for some $C$.
+  \color{blue}
+  \item[(b)] Finally, let's test model selection based on 10-fold cross-validation. That is, divide the dataset into 10 equal-sized subsets (i.e. 3 datapoints in each subset), and, for each value of $K = 0, \dots, 11$ and each data subset $j = 1, \dots, 10$, use all the data except the data in subset $j$ to fit the polynomial of order $K$, and compute the resulting sum of squared errors on subset $j$. For each value of $K$, sum together the errors coming from the different $j$. Plot these results with $K$ on the horizontal axis, and the sum of squared errors on the vertical axis. How does this function behave? Does the cross-validated error improve with increasing $K$? Which $K$ gives the minimum error, and what are the corresponding estimated coefficients? Compare them to the true coefficients used in $f(x)$ to generate the data.
+  
+  \color{black}
+  Now, let us split the data:
+  \begin{verbatim}
+  xsplit = zeros(10, 3);
+  ysplit = zeros(10, 3);
+  for i = 1:10
+    xsplit(i,:) = xs( 3 * (i - 1) + 1 : (i - 1) * 3 + 3);
+    ysplit(i,:) = ys( 3 * (i - 1) + 1 : (i - 1) * 3 + 3);
+  end
+  \end{verbatim}
 \end{itemize}
 
 \end{document}
