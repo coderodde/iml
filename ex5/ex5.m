@@ -1,4 +1,4 @@
-# This is the main entry point.
+# This is the main entry point:
 run('rsquared.m');
 run('sumofsquarederrors.m')
 
