@@ -162,10 +162,11 @@ Given a set of $N$ points $y_1, \dots, y_N$, with each $y_i \in \mathbb{R}$, sho
  is given by the \textit{median} of the $y_i$. [Hint for part (b): Break the sum into parts corresponding to \textit{pairs} of observations, pairing the smallest with the largest point, the second-smallest with the second-largest point, etc.]
  
  \color{black}
- Let us rephrase the sum. If $N$ is even, we have
+ Suppose the $y_i$ are sorted so that $y_1 \leq y_2 \leq \dots \leq y_N$. Let us rephrase the sum. If $N$ is even, we have
  \begin{align*}
  \sum_{i = 1}^N |y_i - \hat{y}| &= \sum_{i = 1}^{N / 2} |y_i - \hat{y}| + |y_{N + 1 - i} - \hat{y}|
  \end{align*}
+ Basically this means that as to keep the sum of absolute errors at its minimum, $\hat{y} \in [y_1, y_N]$, because whenever that is the case, $|y_1 - \hat{y}| + |y_N - \hat{y}|$ is minimized and equals $y_N - y_1$. If we go ``outside'' that range, the sum above becomes $y_N - y_1 + 2\min(|\hat{y} - y_N|, |\hat{y} - y_1|) > |y_1 - \hat{y}| + |y_N - \hat{y}|$. Also, we must restrict $\hat{y}$ to $[y_2, y_{N - 1}], [y_3, y_{N -2}]$ and so on. If $N$ is odd, the sum of absolute errors is minimized whenever $\hat{y} \in [y_{\lfloor N / 2 \rfloor + 1}, y_{\lfloor N / 2 \rfloor + 1}]$, which implies $\hat{y} = y_{\lfloor N / 2 \rfloor + 1}$; by assumption of $y_i$'s being sorted, $y_{\lfloor N / 2 \rfloor + 1}$ is the median. In the case of even $N$, the strongest constraint on value of $\hat{y}$ is the interval $I = [y_{N / 2}, y_{N / 2 + 1}]$, where the two values are medians. In fact, any $\hat{y} \in I$ minimizes the sum of absolute errors as it does not ``leave'' from any interval $[y_1, y_N], [y_2, y_{N - 1}], \dots$.
 \end{itemize}
 
 \color{blue}
